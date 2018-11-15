@@ -2,11 +2,10 @@ package com.itv.scalapact.plugin.shared
 
 import java.io.File
 
-import com.itv.scalapact.shared.ScalaPactSettings
+import com.itv.scalapact.shared.{BuildInfo, PactLogger, ScalaPactSettings}
 import com.itv.scalapact.shared.ColourOuput._
 
 import scala.io.Source
-import com.itv.scalapact.shared.PactLogger
 import com.itv.scalapact.shared.typeclasses.{IPactReader, IPactWriter}
 
 object ScalaPactTestCommand {
@@ -86,7 +85,7 @@ object ScalaPactTestCommand {
         }
 
         PactContractWriter.writePactContracts(outputPath)(combined.provider.name)(combined.consumer.name)(
-          pactWriter.pactToJsonString(combined)
+          pactWriter.pactToJsonString(combined, BuildInfo.version)
         )
 
         ()
