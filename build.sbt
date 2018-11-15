@@ -200,6 +200,16 @@ lazy val http4s018 =
     .dependsOn(shared)
     .settings(compilerOptions212: _*)
 
+lazy val testShared =
+  (project in file("scalapact-test-shared"))
+    .settings(commonSettings: _*)
+    .settings(
+      name := "scalapact-test-shared",
+      publish := {}
+    )
+    .dependsOn(shared)
+    .settings(compilerOptions212: _*)
+
 lazy val argonaut62 =
   (project in file("scalapact-argonaut-6-2"))
     .settings(commonSettings: _*)
@@ -211,6 +221,7 @@ lazy val argonaut62 =
       )
     )
     .dependsOn(shared)
+    .dependsOn(testShared % "test->compile")
     .settings(compilerOptions212: _*)
 
 lazy val circe08 =
@@ -226,6 +237,7 @@ lazy val circe08 =
       ).map(_ % "0.8.0")
     )
     .dependsOn(shared)
+    .dependsOn(testShared % "test->compile")
     .settings(compilerOptions212: _*)
 
 lazy val circe09 =
@@ -241,6 +253,7 @@ lazy val circe09 =
       ).map(_ % "0.9.3")
     )
     .dependsOn(shared)
+    .dependsOn(testShared % "test->compile")
     .settings(compilerOptions212: _*)
 
 lazy val circe10 =
@@ -256,6 +269,7 @@ lazy val circe10 =
       ).map(_ % "0.10.0")
     )
     .dependsOn(shared)
+    .dependsOn(testShared % "test->compile")
     .settings(compilerOptions212: _*)
 
 lazy val pluginShared =
@@ -369,7 +383,7 @@ lazy val docs =
 lazy val scalaPactProject =
   (project in file("."))
     .settings(commonSettings: _*)
-    .aggregate(shared, core, pluginShared, plugin, pluginNoDeps, framework, standalone)
+    .aggregate(shared, core, pluginShared, plugin, pluginNoDeps, framework, standalone, testShared)
     .aggregate(http4s016a, http4s017, http4s018)
     .aggregate(argonaut62, circe08, circe09, circe10)
     .aggregate(docs)
