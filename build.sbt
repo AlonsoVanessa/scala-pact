@@ -124,7 +124,7 @@ lazy val publishSettings = Seq(
       </developers>
 )
 
-val scala212: String = "2.12.5"
+val scala212: String = "2.12.7"
 
 lazy val shared =
   (project in file("scalapact-shared"))
